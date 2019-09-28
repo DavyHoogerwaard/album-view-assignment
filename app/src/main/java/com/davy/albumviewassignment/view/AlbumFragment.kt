@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.davy.albumviewassignment.R
+import com.davy.albumviewassignment.retrofit.Photo
 
 import com.davy.albumviewassignment.viewmodel.AlbumViewModel
 import kotlinx.android.synthetic.main.fragment_album.*
@@ -67,11 +68,11 @@ class AlbumFragment : Fragment() {
     }
 
     private fun recyclerViewClicked(albumId: Int) {
-        listener.navigateToPhotoList(albumId)
+        listener.navigateToPhotoList(viewModel.createPresentablePhotoList(albumId))
     }
 
     interface Listener {
 
-        fun navigateToPhotoList(albumId: Int)
+        fun navigateToPhotoList(photoList: ArrayList<Photo>)
     }
 }

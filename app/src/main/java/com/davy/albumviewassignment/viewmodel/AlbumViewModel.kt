@@ -67,6 +67,17 @@ class AlbumViewModel : ViewModel() {
         return presentableList
     }
 
+    fun createPresentablePhotoList(albumId: Int): ArrayList<Photo> {
+
+        val presentableList: ArrayList<Photo> = arrayListOf()
+
+        for(photo in albumList.value.orEmpty()) {
+            if(photo.albumId == albumId) presentableList.add(photo)
+        }
+
+        return presentableList
+    }
+
     override fun onCleared() {
         super.onCleared()
         disposable.clear()

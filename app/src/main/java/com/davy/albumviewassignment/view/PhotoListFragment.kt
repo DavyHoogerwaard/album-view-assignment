@@ -12,8 +12,23 @@ import com.davy.albumviewassignment.retrofit.Photo
 import kotlinx.android.synthetic.main.fragment_photo_list.*
 
 class PhotoListFragment : Fragment() {
-
+    
+    private var photoList: ArrayList<Photo> = arrayListOf()
     private lateinit var photoListAdapter: PhotoListRecyclerViewAdapter
+
+    companion object {
+
+        val EXTRA_PHOTO_LIST = "EXTRA_PHOTO_LIST"
+
+        fun newInstance(photoList: ArrayList<Photo>): PhotoListFragment {
+
+            val bundle = Bundle()
+            bundle.putSerializable(EXTRA_PHOTO_LIST, photoList)
+            val fragment = PhotoListFragment()
+            fragment.arguments = bundle
+            return fragment
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_photo_list, container, false)
@@ -22,15 +37,14 @@ class PhotoListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        photoList = arguments?.getSerializable(EXTRA_PHOTO_LIST) as ArrayList<Photo>
+
         createRecyclerView()
     }
 
     private fun createRecyclerView() {
 
-        val photo = Photo(2, 2, "title", "https://via.placeholder.com/600/92c952", "https://via.placeholder.com/150/92c952")
-        val list: ArrayList<Photo> = arrayListOf(photo)
-
-        photoListAdapter = PhotoListRecyclerViewAdapter(list, listener = { photoId -> recyclerViewClicked(photoId) })
+        photoListAdapter = PhotoListRecyclerViewAdapter(photoList, listener = { photoId -> recyclerViewClicked(photoId) })
 
         photoListRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
