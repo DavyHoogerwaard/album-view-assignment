@@ -9,7 +9,7 @@ import com.davy.albumviewassignment.R
 import com.davy.albumviewassignment.retrofit.Photo
 import kotlinx.android.synthetic.main.item_photolist_recyclerview.view.*
 
-class PhotoListRecyclerViewAdapter(var photoList: ArrayList<Photo>, val listener : (Int) -> Unit): RecyclerView.Adapter<PhotoListRecyclerViewAdapter.PhotoListViewHolder>() {
+class PhotoListRecyclerViewAdapter(var photoList: ArrayList<Photo>, val listener : (String, String) -> Unit): RecyclerView.Adapter<PhotoListRecyclerViewAdapter.PhotoListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoListViewHolder {
         return PhotoListViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_photolist_recyclerview, parent, false))
@@ -26,7 +26,7 @@ class PhotoListRecyclerViewAdapter(var photoList: ArrayList<Photo>, val listener
         private val imageViewPhoto = itemView.imageViewPhoto
         private val photoTitle = itemView.textViewPhotoTitle
 
-        fun bind (photoList: Photo, listener:(Int) -> Unit) {
+        fun bind (photoList: Photo, listener:(String, String) -> Unit) {
 
             Glide.with(itemView)
                 .load(photoList.thumbnailUrl)
@@ -34,7 +34,7 @@ class PhotoListRecyclerViewAdapter(var photoList: ArrayList<Photo>, val listener
 
             photoTitle.text = photoList.title
 
-            itemView.setOnClickListener { listener(photoList.id) }
+            itemView.setOnClickListener { listener(photoList.title, photoList.url) }
         }
     }
 }

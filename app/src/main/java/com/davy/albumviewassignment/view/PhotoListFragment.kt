@@ -1,5 +1,6 @@
 package com.davy.albumviewassignment.view
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,9 +13,10 @@ import com.davy.albumviewassignment.retrofit.Photo
 import kotlinx.android.synthetic.main.fragment_photo_list.*
 
 class PhotoListFragment : Fragment() {
-    
+
     private var photoList: ArrayList<Photo> = arrayListOf()
     private lateinit var photoListAdapter: PhotoListRecyclerViewAdapter
+    private lateinit var listener: Listener
 
     companion object {
 
@@ -42,9 +44,14 @@ class PhotoListFragment : Fragment() {
         createRecyclerView()
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if(context is Listener) listener = context
+    }
+
     private fun createRecyclerView() {
 
-        photoListAdapter = PhotoListRecyclerViewAdapter(photoList, listener = { photoId -> recyclerViewClicked(photoId) })
+        photoListAdapter = PhotoListRecyclerViewAdapter(photoList, listener = { title, imageUrl -> recyclerViewClicked(title, imageUrl) })
 
         photoListRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
@@ -52,7 +59,13 @@ class PhotoListFragment : Fragment() {
         }
     }
 
-    private fun recyclerViewClicked(photoId: Int) {
+    private fun recyclerViewClicked(title: String, imageUrl: String) {
 
+        listener.navigateToPhotoDetail(title, imageUrl)
+    }
+
+    interface Listener {
+
+        fun navigateToPhotoDetail(title: String, imageUrl: String)
     }
 }
