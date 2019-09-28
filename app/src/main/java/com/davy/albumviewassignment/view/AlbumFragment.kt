@@ -8,19 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.davy.albumviewassignment.R
-import com.davy.albumviewassignment.retrofit.AlbumService
-import com.davy.albumviewassignment.retrofit.Photo
 import com.davy.albumviewassignment.viewmodel.AlbumViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.observers.DisposableSingleObserver
-import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.fragment_album.*
 
 class AlbumFragment : Fragment() {
 
     lateinit var viewModel: AlbumViewModel
+    private val albumAdapter = AlbumRecyclerViewAdapter(arrayListOf())
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_album, container, false)
@@ -32,12 +29,21 @@ class AlbumFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(AlbumViewModel::class.java)
         viewModel.getPhotoList()
 
+        createRecyclerView()
         observeViewModel()
+    }
+
+    fun createRecyclerView() {
+        albumRecyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = albumAdapter
+        }
     }
 
     fun observeViewModel() {
 
         viewModel.albumList.observe(this, Observer {
+            albumAdapter.updatePhotoList(it)
             Log.d("AlbumFragment", it.toString())
         })
     }
