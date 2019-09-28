@@ -33,18 +33,25 @@ class AlbumFragment : Fragment() {
         observeViewModel()
     }
 
-    fun createRecyclerView() {
+    private fun createRecyclerView() {
         albumRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = albumAdapter
         }
     }
 
-    fun observeViewModel() {
+    private fun observeViewModel() {
 
-        viewModel.albumList.observe(this, Observer {
-            albumAdapter.updatePhotoList(it)
-            Log.d("AlbumFragment", it.toString())
+        viewModel.albumList.observe(this, Observer { photos ->
+            photos?.let {
+                albumAdapter.updatePhotoList(it)
+            }
+        })
+
+        viewModel.loading.observe(this, Observer { isLoading ->
+            isLoading?.let {
+                loadingProgressBar.visibility = if (it) View.VISIBLE else View.GONE
+            }
         })
     }
 }

@@ -36,7 +36,7 @@ class AlbumRecyclerViewAdapter(var photoList: ArrayList<Photo>): RecyclerView.Ad
 
         fun bind (photo: Photo) {
 
-            photoTitle.text = photo.title
+            photoTitle.text = photo.albumId.toString()
         }
     }
 }

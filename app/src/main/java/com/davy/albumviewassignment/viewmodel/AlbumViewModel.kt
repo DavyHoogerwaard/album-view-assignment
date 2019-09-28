@@ -20,12 +20,16 @@ class AlbumViewModel : ViewModel() {
     private val disposable = CompositeDisposable()
 
     val albumList = MutableLiveData<List<Photo>>()
+    val loading = MutableLiveData<Boolean>()
 
     init {
         DaggerApiComponent.create().inject(this)
     }
 
     fun getPhotoList() {
+
+        loading.value = true
+
         disposable.add(
             albumService.getPhotoList()
                 .subscribeOn(Schedulers.newThread())
@@ -34,9 +38,11 @@ class AlbumViewModel : ViewModel() {
 
                     override fun onSuccess(value: List<Photo>?) {
                         albumList.value = value
+                        loading.value = false
                     }
 
                     override fun onError(error: Throwable?) {
+                        loading.value = false
                         Log.d("AlbumViewModel", error.toString())
                     }
                 })
