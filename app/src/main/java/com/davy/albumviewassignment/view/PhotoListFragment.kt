@@ -16,7 +16,7 @@ class PhotoListFragment : Fragment() {
 
     private val EXTRA_PHOTO_LIST = "EXTRA_PHOTO_LIST"
 
-    private var photoList: ArrayList<Photo> = arrayListOf()
+    private lateinit var photoList: ArrayList<Photo>
     private lateinit var photoListAdapter: PhotoListRecyclerViewAdapter
     private lateinit var listener: Listener
 
@@ -26,7 +26,7 @@ class PhotoListFragment : Fragment() {
         fun newInstance(photoList: ArrayList<Photo>) =
             PhotoListFragment().apply {
                 arguments = Bundle().apply {
-                    putSerializable(EXTRA_PHOTO_LIST, photoList)
+                    putParcelableArrayList(EXTRA_PHOTO_LIST, photoList)
                 }
             }
     }
@@ -38,8 +38,7 @@ class PhotoListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        photoList = arguments?.getSerializable(EXTRA_PHOTO_LIST) as ArrayList<Photo>
-
+        arguments?.let { photoList = it.getParcelableArrayList<Photo>(EXTRA_PHOTO_LIST) }
         createRecyclerView()
     }
 
