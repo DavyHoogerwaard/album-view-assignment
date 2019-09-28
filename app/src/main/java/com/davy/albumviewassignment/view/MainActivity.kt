@@ -41,9 +41,9 @@ class MainActivity : AppCompatActivity(), AlbumListFragment.Listener, PhotoListF
 
         val currentFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
         when (currentFragment?.tag) {
-            TAG_ALBUM_FRAGMENT -> setToolbarItems(false, "Albums")
-            TAG_PHOTO_FRAGMENT -> setToolbarItems(true, "Photos")
-            TAG_DETAIL_FRAGMENT -> setToolbarItems(true, "More Info")
+            TAG_ALBUM_FRAGMENT -> setToolbarItems(false, getString(R.string.toolbar_title_album))
+            TAG_PHOTO_FRAGMENT -> setToolbarItems(true, getString(R.string.toolbar_title_photos))
+            TAG_DETAIL_FRAGMENT -> setToolbarItems(true, getString(R.string.toolbar_title_detail))
         }
     }
 
