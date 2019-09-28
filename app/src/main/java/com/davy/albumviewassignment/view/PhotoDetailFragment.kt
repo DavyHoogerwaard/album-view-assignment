@@ -9,7 +9,6 @@ import com.bumptech.glide.Glide
 
 import com.davy.albumviewassignment.R
 import kotlinx.android.synthetic.main.fragment_photo_detail.*
-import kotlinx.android.synthetic.main.item_photolist_recyclerview.*
 
 class PhotoDetailFragment : Fragment() {
 
@@ -49,8 +48,8 @@ class PhotoDetailFragment : Fragment() {
 
         Glide.with(this)
             .load(imageUrl)
-            .into(imageViewPhotoDetail)
+            .into(imageViewThumbnail)
 
-        textViewPhotoDetailTitle.text = title
+        textViewAlbumTitle.text = title
     }
 }

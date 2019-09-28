@@ -10,7 +10,7 @@
     tools:context=".view.PhotoListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/photoListRecyclerView"
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"

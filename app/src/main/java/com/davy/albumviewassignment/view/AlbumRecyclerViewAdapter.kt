@@ -24,21 +24,20 @@ class AlbumRecyclerViewAdapter(var albumList: ArrayList<Album> = ArrayList(), va
 
     override fun getItemCount(): Int = albumList.size
 
-
     override fun onBindViewHolder(holder: AlbumViewHolder, position: Int) {
         holder.bind(albumList[position], listener)
     }
 
     inner class AlbumViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
-        private val albumThumbNail = itemView.imageViewThumbnail
-        private val albumTitle = itemView.title
+        private val albumThumbnail = itemView.imageViewThumbnail
+        private val albumTitle = itemView.textViewAlbumTitle
 
         fun bind (album: Album, listener:(Int) -> Unit) {
 
             Glide.with(itemView)
                 .load(album.thumbnailUrl)
-                .into(albumThumbNail)
+                .into(albumThumbnail)
 
             albumTitle.text = album.albumId.toString()
             itemView.setOnClickListener { listener(album.albumId) }

@@ -24,7 +24,7 @@ class PhotoListRecyclerViewAdapter(var photoList: ArrayList<Photo>, val listener
     inner class PhotoListViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
         private val imageViewPhoto = itemView.imageViewPhoto
-        private val photoTitle = itemView.textViewPhotoTitle
+        private val photoTitle = itemView.textViewTitle
 
         fun bind (photoList: Photo, listener:(String, String) -> Unit) {
 

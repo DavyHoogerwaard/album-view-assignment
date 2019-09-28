@@ -14,22 +14,21 @@ import kotlinx.android.synthetic.main.fragment_photo_list.*
 
 class PhotoListFragment : Fragment() {
 
+    private val EXTRA_PHOTO_LIST = "EXTRA_PHOTO_LIST"
+
     private var photoList: ArrayList<Photo> = arrayListOf()
     private lateinit var photoListAdapter: PhotoListRecyclerViewAdapter
     private lateinit var listener: Listener
 
     companion object {
 
-        val EXTRA_PHOTO_LIST = "EXTRA_PHOTO_LIST"
-
-        fun newInstance(photoList: ArrayList<Photo>): PhotoListFragment {
-
-            val bundle = Bundle()
-            bundle.putSerializable(EXTRA_PHOTO_LIST, photoList)
-            val fragment = PhotoListFragment()
-            fragment.arguments = bundle
-            return fragment
-        }
+        @JvmStatic
+        fun newInstance(photoList: ArrayList<Photo>) =
+            PhotoListFragment().apply {
+                arguments = Bundle().apply {
+                    putSerializable(EXTRA_PHOTO_LIST, photoList)
+                }
+            }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -53,7 +52,7 @@ class PhotoListFragment : Fragment() {
 
         photoListAdapter = PhotoListRecyclerViewAdapter(photoList, listener = { title, imageUrl -> recyclerViewClicked(title, imageUrl) })
 
-        photoListRecyclerView.apply {
+        recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = photoListAdapter
         }

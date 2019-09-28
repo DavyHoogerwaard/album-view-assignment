@@ -11,25 +11,24 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.davy.albumviewassignment.R
 import com.davy.albumviewassignment.retrofit.Photo
+import com.davy.albumviewassignment.viewmodel.AlbumListViewModel
 
-import com.davy.albumviewassignment.viewmodel.AlbumViewModel
-import kotlinx.android.synthetic.main.fragment_album.*
+import kotlinx.android.synthetic.main.fragment_album_list.*
 
+class AlbumListFragment : Fragment() {
 
-class AlbumFragment : Fragment() {
-
-    private lateinit var viewModel: AlbumViewModel
+    private lateinit var viewModel: AlbumListViewModel
     private lateinit var albumAdapter: AlbumRecyclerViewAdapter
     private lateinit var listener: Listener
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_album, container, false)
+        return inflater.inflate(R.layout.fragment_album_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProviders.of(this).get(AlbumViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(AlbumListViewModel::class.java)
         viewModel.getPhotoList()
 
         createRecyclerView()
@@ -44,8 +43,7 @@ class AlbumFragment : Fragment() {
     private fun createRecyclerView() {
 
         albumAdapter = AlbumRecyclerViewAdapter(listener = { albumId -> recyclerViewClicked(albumId) })
-
-        albumRecyclerView.apply {
+        recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = albumAdapter
         }
@@ -62,7 +60,7 @@ class AlbumFragment : Fragment() {
 
         viewModel.loading.observe(this, Observer { isLoading ->
             isLoading?.let {
-                loadingProgressBar.visibility = if (it) View.VISIBLE else View.GONE
+                progressBar.visibility = if (it) View.VISIBLE else View.GONE
             }
         })
     }

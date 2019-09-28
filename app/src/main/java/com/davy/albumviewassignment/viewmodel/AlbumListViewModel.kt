@@ -13,7 +13,7 @@ import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class AlbumViewModel : ViewModel() {
+class AlbumListViewModel : ViewModel() {
 
     @Inject
     lateinit var albumService: AlbumService
