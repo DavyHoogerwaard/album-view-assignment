@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.davy.albumviewassignment.dagger.DaggerApiComponent
+import com.davy.albumviewassignment.retrofit.Album
 import com.davy.albumviewassignment.retrofit.AlbumService
 import com.davy.albumviewassignment.retrofit.Photo
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -47,6 +48,23 @@ class AlbumViewModel : ViewModel() {
                     }
                 })
         )
+    }
+
+    fun createPresentableAlbumList(photoList: List<Photo>): List<Album> {
+
+        val presentableList: ArrayList<Album> = arrayListOf()
+        var currentId: Int = -1
+
+        for (photo in photoList) {
+
+            if (photo.albumId != currentId) {
+
+                presentableList.add(Album(photo.albumId, photo.thumbnailUrl))
+                currentId = photo.albumId
+            }
+        }
+
+        return presentableList
     }
 
     override fun onCleared() {

@@ -10,3 +10,9 @@ data class Photo (
     @SerializedName("url") val url : String,
     @SerializedName("thumbnailUrl") val thumbnailUrl : String
 )
+
+data class Album(
+
+    val albumId: Int,
+    val thumbnailUrl: String
+)

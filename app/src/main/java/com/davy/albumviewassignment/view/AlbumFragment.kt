@@ -1,7 +1,6 @@
 package com.davy.albumviewassignment.view
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -44,7 +43,8 @@ class AlbumFragment : Fragment() {
 
         viewModel.albumList.observe(this, Observer { photos ->
             photos?.let {
-                albumAdapter.updatePhotoList(it)
+                val presentableList = viewModel.createPresentableAlbumList(it)
+                albumAdapter.updateAlbumList(presentableList)
             }
         })
 

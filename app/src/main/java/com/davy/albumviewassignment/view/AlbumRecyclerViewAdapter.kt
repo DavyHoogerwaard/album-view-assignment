@@ -5,38 +5,38 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.davy.albumviewassignment.R
-import com.davy.albumviewassignment.retrofit.Photo
+import com.davy.albumviewassignment.retrofit.Album
 import kotlinx.android.synthetic.main.item_album_recyclerview.view.*
 
-class AlbumRecyclerViewAdapter(var photoList: ArrayList<Photo>): RecyclerView.Adapter<AlbumRecyclerViewAdapter.PhotoViewHolder>() {
+class AlbumRecyclerViewAdapter(var albumList: ArrayList<Album>): RecyclerView.Adapter<AlbumRecyclerViewAdapter.AlbumViewHolder>() {
 
-    fun updatePhotoList(newPhotoList: List<Photo>) {
+    fun updateAlbumList(newAlbumList: List<Album>) {
 
-        photoList.clear()
-        photoList.addAll(newPhotoList)
+        albumList.clear()
+        albumList.addAll(newAlbumList)
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {
-        return PhotoViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_album_recyclerview, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumViewHolder {
+        return AlbumViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_album_recyclerview, parent, false))
     }
 
     override fun getItemCount(): Int {
-        return photoList.size
+        return albumList.size
     }
 
 
-    override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
-        holder.bind(photoList[position])
+    override fun onBindViewHolder(holder: AlbumViewHolder, position: Int) {
+        holder.bind(albumList[position])
     }
 
-    inner class PhotoViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    inner class AlbumViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
-        private val photoTitle = view.title
+        private val albumTitle = view.title
 
-        fun bind (photo: Photo) {
+        fun bind (album: Album) {
 
-            photoTitle.text = photo.albumId.toString()
+            albumTitle.text = album.albumId.toString()
         }
     }
 }
