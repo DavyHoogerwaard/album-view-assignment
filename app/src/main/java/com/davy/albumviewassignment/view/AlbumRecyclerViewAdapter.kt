@@ -21,9 +21,8 @@ class AlbumRecyclerViewAdapter(var albumList: ArrayList<Album> = ArrayList(), va
         return AlbumViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_album_recyclerview, parent, false))
     }
 
-    override fun getItemCount(): Int {
-        return albumList.size
-    }
+    override fun getItemCount(): Int = albumList.size
+
 
     override fun onBindViewHolder(holder: AlbumViewHolder, position: Int) {
         holder.bind(albumList[position], listener)

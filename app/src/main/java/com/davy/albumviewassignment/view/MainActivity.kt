@@ -11,14 +11,15 @@ class MainActivity : AppCompatActivity(), AlbumFragment.Listener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        addInitialFragment(AlbumFragment())
+        addFragment(AlbumFragment())
     }
 
-    fun addInitialFragment(fragment: Fragment) {
+    fun addFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().add(R.id.fragment_container, fragment).commit()
     }
 
     override fun navigateToPhotoList(albumId: Int) {
+        addFragment(PhotoListFragment())
         Log.d("MainActivity", albumId.toString())
     }
 }
