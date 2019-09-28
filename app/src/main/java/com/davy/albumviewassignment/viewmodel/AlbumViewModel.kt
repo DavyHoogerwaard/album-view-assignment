@@ -3,19 +3,27 @@ package com.davy.albumviewassignment.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.davy.albumviewassignment.dagger.DaggerApiComponent
 import com.davy.albumviewassignment.retrofit.AlbumService
 import com.davy.albumviewassignment.retrofit.Photo
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
 class AlbumViewModel : ViewModel() {
 
-    private val albumService = AlbumService()
+    @Inject
+    lateinit var albumService: AlbumService
+
     private val disposable = CompositeDisposable()
 
     val albumList = MutableLiveData<List<Photo>>()
+
+    init {
+        DaggerApiComponent.create().inject(this)
+    }
 
     fun getPhotoList() {
         disposable.add(
@@ -26,11 +34,10 @@ class AlbumViewModel : ViewModel() {
 
                     override fun onSuccess(value: List<Photo>?) {
                         albumList.value = value
-                        Log.d("AlbumViewModel", value?.size.toString())
                     }
 
-                    override fun onError(e: Throwable?) {
-                        Log.d("AlbumViewModel", e.toString())
+                    override fun onError(error: Throwable?) {
+                        Log.d("AlbumViewModel", error.toString())
                     }
                 })
         )
