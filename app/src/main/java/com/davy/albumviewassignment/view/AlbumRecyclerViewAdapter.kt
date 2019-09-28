@@ -8,7 +8,7 @@ import com.davy.albumviewassignment.R
 import com.davy.albumviewassignment.retrofit.Album
 import kotlinx.android.synthetic.main.item_album_recyclerview.view.*
 
-class AlbumRecyclerViewAdapter(var albumList: ArrayList<Album>): RecyclerView.Adapter<AlbumRecyclerViewAdapter.AlbumViewHolder>() {
+class AlbumRecyclerViewAdapter(var albumList: ArrayList<Album> = ArrayList(), val listener : (Int) -> Unit): RecyclerView.Adapter<AlbumRecyclerViewAdapter.AlbumViewHolder>() {
 
     fun updateAlbumList(newAlbumList: List<Album>) {
 
@@ -25,18 +25,18 @@ class AlbumRecyclerViewAdapter(var albumList: ArrayList<Album>): RecyclerView.Ad
         return albumList.size
     }
 
-
     override fun onBindViewHolder(holder: AlbumViewHolder, position: Int) {
-        holder.bind(albumList[position])
+        holder.bind(albumList[position], listener)
     }
 
-    inner class AlbumViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    inner class AlbumViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
-        private val albumTitle = view.title
+        private val albumTitle = itemView.title
 
-        fun bind (album: Album) {
+        fun bind (album: Album, listener:(Int) -> Unit) {
 
             albumTitle.text = album.albumId.toString()
+            itemView.setOnClickListener { listener(album.albumId) }
         }
     }
 }
