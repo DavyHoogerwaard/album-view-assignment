@@ -13,11 +13,39 @@ class MainActivity : AppCompatActivity(), AlbumFragment.Listener, PhotoListFragm
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        addFragment(AlbumFragment())
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        addInitialFragment(AlbumFragment())
+    }
+
+    private fun addInitialFragment(fragment: Fragment) {
+
+        supportFragmentManager
+            .beginTransaction()
+            .add(R.id.fragment_container, fragment)
+            .commit()
     }
 
     private fun addFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction().add(R.id.fragment_container, fragment).commit()
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        supportFragmentManager
+            .beginTransaction()
+            .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left, R.anim.slide_in_right, R.anim.slide_out_right)
+            .add(R.id.fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        supportActionBar?.setDisplayHomeAsUpEnabled(supportFragmentManager.backStackEntryCount > 0)
+        return true
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        supportActionBar?.setDisplayHomeAsUpEnabled(supportFragmentManager.backStackEntryCount > 0)
     }
 
     override fun navigateToPhotoList(photoList: ArrayList<Photo>) {
