@@ -9,6 +9,9 @@ import com.davy.albumviewassignment.R
 import com.davy.albumviewassignment.retrofit.Photo
 import kotlinx.android.synthetic.main.item_photolist_recyclerview.view.*
 
+/**
+ * Adapter for the PhotoListFragment
+ */
 class PhotoListRecyclerViewAdapter(var photoList: ArrayList<Photo>, val listener : (String, String) -> Unit): RecyclerView.Adapter<PhotoListRecyclerViewAdapter.PhotoListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoListViewHolder {

@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity(), AlbumListFragment.Listener, PhotoListF
         setContentView(R.layout.activity_main)
 
         addInitialFragment()
-        setToolbarItems(false, "Albums")
+        setToolbarItems(false, getString(R.string.toolbar_title_album))
         supportFragmentManager.addOnBackStackChangedListener { updateToolbar() }
     }
 

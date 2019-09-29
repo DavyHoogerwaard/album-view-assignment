@@ -12,6 +12,9 @@ import com.davy.albumviewassignment.R
 import com.davy.albumviewassignment.retrofit.Photo
 import kotlinx.android.synthetic.main.fragment_photo_list.*
 
+/**
+ * Fragment that shows a list of all the photos in the selected album
+ */
 class PhotoListFragment : Fragment() {
 
     private val EXTRA_PHOTO_LIST = "EXTRA_PHOTO_LIST"
@@ -64,6 +67,9 @@ class PhotoListFragment : Fragment() {
 
     interface Listener {
 
+        /**
+         * Callback for when the user presses on a photo row
+         */
         fun navigateToPhotoDetail(title: String, imageUrl: String)
     }
 }

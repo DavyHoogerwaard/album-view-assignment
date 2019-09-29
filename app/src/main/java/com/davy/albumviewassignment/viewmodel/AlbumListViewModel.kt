@@ -13,6 +13,9 @@ import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
+/**
+ * ViewModel for the AlbumListFragment
+ */
 class AlbumListViewModel : ViewModel() {
 
     @Inject
@@ -27,7 +30,10 @@ class AlbumListViewModel : ViewModel() {
         DaggerApiComponent.create().inject(this)
     }
 
-    fun getPhotoList() {
+    /**
+     * Fetch the data from the service
+     */
+    fun fetchData() {
 
         loading.value = true
 
@@ -50,6 +56,9 @@ class AlbumListViewModel : ViewModel() {
         )
     }
 
+    /**
+     * Create a new list for the AlbumRecyclerViewAdapter
+     */
     fun createPresentableAlbumList(photoList: List<Photo>): List<Album> {
 
         val presentableList: ArrayList<Album> = arrayListOf()
@@ -67,6 +76,9 @@ class AlbumListViewModel : ViewModel() {
         return presentableList
     }
 
+    /**
+     * Create a new list for the PhotoListRecyclerAdapter
+     */
     fun createPresentablePhotoList(albumId: Int): ArrayList<Photo> {
 
         val presentableList: ArrayList<Photo> = arrayListOf()

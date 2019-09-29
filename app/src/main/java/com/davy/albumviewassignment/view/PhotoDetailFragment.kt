@@ -10,6 +10,9 @@ import com.bumptech.glide.Glide
 import com.davy.albumviewassignment.R
 import kotlinx.android.synthetic.main.fragment_photo_detail.*
 
+/**
+ * Detail fragment for the photos
+ */
 class PhotoDetailFragment : Fragment() {
 
     private val EXTRA_TITLE = "EXTRA_TITLE"
@@ -21,11 +24,11 @@ class PhotoDetailFragment : Fragment() {
     companion object {
 
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(title: String, imageUrl: String) =
             PhotoDetailFragment().apply {
                 arguments = Bundle().apply {
-                    putString(EXTRA_TITLE, param1)
-                    putString(EXTRA_IMAGE_URL, param2)
+                    putString(EXTRA_TITLE, title)
+                    putString(EXTRA_IMAGE_URL, imageUrl)
                 }
             }
     }

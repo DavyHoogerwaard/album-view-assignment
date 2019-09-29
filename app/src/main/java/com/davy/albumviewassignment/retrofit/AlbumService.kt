@@ -13,6 +13,9 @@ class AlbumService {
         DaggerApiComponent.create().inject(this)
     }
 
+    /**
+     * Get a list of photos. The list is emitted a single time
+     */
     fun getPhotoList(): Single<List<Photo>> {
         return albumApi.getPhotoList()
     }

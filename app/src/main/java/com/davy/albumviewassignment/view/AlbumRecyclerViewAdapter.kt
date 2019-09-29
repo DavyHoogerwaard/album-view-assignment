@@ -9,6 +9,9 @@ import com.davy.albumviewassignment.R
 import com.davy.albumviewassignment.retrofit.Album
 import kotlinx.android.synthetic.main.item_album_recyclerview.view.*
 
+/**
+ * Adapter for the AlbumListFragment
+ */
 class AlbumRecyclerViewAdapter(var albumList: ArrayList<Album> = ArrayList(), val listener : (Int) -> Unit): RecyclerView.Adapter<AlbumRecyclerViewAdapter.AlbumViewHolder>() {
 
     fun updateAlbumList(newAlbumList: List<Album>) {

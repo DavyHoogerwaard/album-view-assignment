@@ -15,6 +15,9 @@ import com.davy.albumviewassignment.viewmodel.AlbumListViewModel
 
 import kotlinx.android.synthetic.main.fragment_album_list.*
 
+/**
+ * First fragment tht will show a list of albums
+ */
 class AlbumListFragment : Fragment() {
 
     private lateinit var viewModel: AlbumListViewModel
@@ -29,7 +32,7 @@ class AlbumListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProviders.of(this).get(AlbumListViewModel::class.java)
-        viewModel.getPhotoList()
+        viewModel.fetchData()
 
         createRecyclerView()
         observeViewModel()
@@ -71,6 +74,9 @@ class AlbumListFragment : Fragment() {
 
     interface Listener {
 
+        /**
+         * Callback for when a row of buttons is pressed
+         */
         fun navigateToPhotoList(photoList: ArrayList<Photo>)
     }
 }
